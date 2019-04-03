@@ -1,0 +1,12 @@
+gradle:
+
+compile 'com.flaviofaria:kenburnsview:1.0.7'
+
+Layout:
+
+<com.flaviofaria.kenburnsview.KenBurnsView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/h"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />

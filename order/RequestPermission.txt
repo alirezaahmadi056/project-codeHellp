@@ -1,0 +1,24 @@
+fun openSite(view: View) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            val array = Array<String>(1) { android.Manifest.permission.INTERNET }
+            ActivityCompat.requestPermissions(this, array, 1234)
+        } else {
+            val webUrl = Uri.parse("http://www.viranika.ir")
+            val intent = Intent(Intent.ACTION_VIEW, webUrl)
+            if (intent.resolveActivity(packageManager) != null)
+                startActivity(intent)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == 1234) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                val webUrl = Uri.parse("http://www.viranika.ir")
+                val intent = Intent(Intent.ACTION_VIEW, webUrl)
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+            }
+        }
+    }

@@ -1,0 +1,50 @@
+implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+
+import android.content.Context
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import application.ahmadi.myshopwodpress.Products
+import application.ahmadi.myshopwodpress.R
+import com.squareup.picasso.Picasso
+
+class ProductAdapter(val context: Context, val category: List<Products>) :
+    RecyclerView.Adapter<ProductAdapter.ProductsViewHolder>() {
+
+    inner class ProductsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val imageProductRow = itemView.findViewById<ImageView>(R.id.img_recyclerProductRow_imgUrl)
+        val txtTitle = itemView.findViewById<TextView>(R.id.txt_recyclerProductRow_title)
+        val txtPrice = itemView.findViewById<TextView>(R.id.txt_recyclerProductRow_price)
+        val cardView = itemView.findViewById<TextView>(R.id.card_productRecyclerRow)
+
+    }
+
+    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ProductsViewHolder {
+
+        val view = LayoutInflater.from(context).inflate(R.layout.product_recycler_row, p0, false)
+        return ProductsViewHolder(view)
+
+    }
+
+    override fun getItemCount(): Int {
+
+        return category.count()
+
+    }
+
+    override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
+
+        val product = category[position]
+        holder.txtTitle.text = product.title
+        Picasso.with(context).load(product.img).into(holder.imageProductRow)
+
+    }
+
+}
+

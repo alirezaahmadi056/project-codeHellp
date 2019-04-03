@@ -1,0 +1,29 @@
+Gradle:
+
+implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+
+New Classes:
+
+import android.app.Application
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+
+class MyFonts : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/IRANSansWeb_Bold.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        )
+    }
+}
+
+Add Your Manifests:
+
+android:name=".MyFonts"
+
+MainActivity:
+
+override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }

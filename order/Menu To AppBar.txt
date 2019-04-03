@@ -1,0 +1,18 @@
+override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu1, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if (item != null) {
+            when (item.itemId) {
+                R.id.itemAdd -> {
+                    val intent = Intent(this, Main2Activity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }

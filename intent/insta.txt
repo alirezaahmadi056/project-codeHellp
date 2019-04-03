@@ -1,0 +1,13 @@
+val uri = Uri.parse("http://instagram.com/viranika_co")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+
+                intent.setPackage("com.instagram.android")
+
+                try {
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    val intent1 = Intent(this, WebActivity::class.java)
+                    intent1.putExtra("url", "http://instagram.com/viranika_co")
+                    startActivity(intent1)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }

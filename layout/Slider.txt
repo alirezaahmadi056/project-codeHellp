@@ -1,0 +1,120 @@
+implementation 'me.relex:circleindicator:1.2.2'
+
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/circleIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="244dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="368dp"
+        android:layout_height="214dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorBlack"
+        app:layout_constraintBottom_toTopOf="@+id/circleIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
+
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="367dp"
+        android:layout_height="217dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/welcome_2_1" />
+</android.support.constraint.ConstraintLayout>
+
+package application.ahmadi.testkotlin
+
+import android.content.Context
+import android.support.v4.view.PagerAdapter
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import kotlinx.android.synthetic.main.temp.view.*
+
+class SliderAdapter(context: Context, array: IntArray) : PagerAdapter() {
+
+    var array1 = array
+    val inflater = LayoutInflater.from(context)
+
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        return view.equals(`object`)
+    }
+
+    override fun getCount(): Int {
+        return array1.size
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        container.removeView(`object` as View)
+    }
+
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val view = inflater.inflate(R.layout.temp, container, false)
+        val image = view.findViewById<ImageView>(R.id.imageView)
+        image.setImageResource(array1[position])
+        container.addView(image, 0)
+        return image
+    }
+
+}
+
+package application.ahmadi.testkotlin
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val array = IntArray(3)
+        array[0] = R.drawable.img3
+        array[1] = R.drawable.img4
+        array[2] = R.drawable.welcome_2_1
+
+        val adapter = SliderAdapter(this, array)
+        viewPager.adapter = adapter
+        circleIndicator.setViewPager(viewPager)
+
+    }
+
+}

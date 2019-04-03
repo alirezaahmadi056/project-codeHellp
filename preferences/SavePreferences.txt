@@ -1,0 +1,22 @@
+override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        shared = getSharedPreferences("pref", MODE_PRIVATE)
+
+        btnSave.setOnClickListener {
+            val editor: SharedPreferences.Editor = shared!!.edit()
+            editor.putString("strName", edtText.text.toString())
+            editor.apply()
+            Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show()
+        }
+
+        btnLoad.setOnClickListener {
+            val name = shared!!.getString("strName", "NOT-FOUND")
+            AlertDialog.Builder(this)
+                    .setTitle("Load Values")
+                    .setMessage("YourName: $name")
+                    .show()
+        }
+
+    }

@@ -1,0 +1,29 @@
+//Create File External Storage
+        button.setOnClickListener {
+            val data = editText3.text.toString()
+            val file = File(getExternalFilesDir(null), "test.txt")
+            val fos = FileOutputStream(file)
+            fos.write(data.toByteArray())
+            fos.close()
+            Toast.makeText(this, "Create", Toast.LENGTH_LONG).show()
+        }
+
+        //Read File External Storage
+        button2.setOnClickListener {
+            val file = File(getExternalFilesDir(null), "test.txt")
+            val fis = FileInputStream(file)
+            val reader = BufferedReader(InputStreamReader(fis))
+            var line: String
+            val sb = StringBuilder()
+            try {
+
+                do {
+                    line = reader.readLine()
+                    sb.append(line)
+                } while (true)
+
+            } catch (ex: Exception) {
+
+            }
+            textView3.text = sb
+        }

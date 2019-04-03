@@ -1,0 +1,11 @@
+﻿var check = true
+    
+    override fun onBackPressed() {
+        if (check) {
+            Toast.makeText(this, "برای خروج دوباره کلیک کنید", Toast.LENGTH_LONG).show()
+            check = false
+        } else {
+            check = true
+            finish()
+        }
+    }

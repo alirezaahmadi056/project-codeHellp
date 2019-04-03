@@ -1,0 +1,12 @@
+	val URL = "https://soft98.ir"
+	webView.settings.javaScriptEnabled = true
+        webView.settings.builtInZoomControls = true
+        webView.settings.textZoom = 100
+        webView.webViewClient = WebViewClient()
+        webView.loadUrl(URL)
+
+Show text in WebView:
+
+	    val code = "<html> <head></head> <body dir='rtl' style='font-size: 24px; text-align: justify;'> ${sb.toString()} </body> </html>"
+            web1.loadData(code, "text/html; charset=utf-8", null)
+            web1.setBackgroundColor(0x00000000)

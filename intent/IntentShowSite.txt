@@ -1,0 +1,4 @@
+	val webUrl = Uri.parse("http://www.viranika.ir")
+        val intent = Intent(Intent.ACTION_VIEW, webUrl)
+        if (intent.resolveActivity(packageManager) != null)
+            startActivity(intent)

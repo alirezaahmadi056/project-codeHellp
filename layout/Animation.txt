@@ -1,0 +1,42 @@
+Create Directory Name: anim
+
+anim -> Create Animation Resource Fine:
+
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <translate
+        android:duration="4000"
+        android:fromYDelta="-800"
+        android:toXDelta="0"
+        />
+
+</set>
+
+Main Activity:
+
+	val animation = AnimationUtils.loadAnimation(this, R.anim.move_top)
+        textView.animation = animation
+
+fade In:
+
+<alpha
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:fromAlpha="0.0" android:toAlpha="1.0" android:duration="500"
+    />
+
+fade out:
+
+<alpha
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:fromAlpha="1.0" android:toAlpha="0.0" android:duration="500"
+    />
+
+Activity:
+
+		    val intent = Intent(this, Preferences::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+

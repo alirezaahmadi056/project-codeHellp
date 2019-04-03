@@ -1,0 +1,21 @@
+﻿val appName = "org.telegram.messenger"
+                val appName2 = "org.ir.talaeii"
+                val isAppInstalled = IsInstallpackManger(applicationContext, appName)
+                val isAppInstalled2 = IsInstallpackManger(applicationContext, appName2)
+                if (isAppInstalled || isAppInstalled2) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/ViraNika_co"))
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(applicationContext, "تگلرام روی گوشی اندرویدی شما نصب نیست !", Toast.LENGTH_SHORT).show()
+                }
+
+fun IsInstallpackManger(context: Context, appName: String): Boolean {
+        val pm = context.packageManager
+        try {
+            pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES)
+            return true
+        } catch (e: PackageManager.NameNotFoundException) {
+            return false
+        }
+
+    }

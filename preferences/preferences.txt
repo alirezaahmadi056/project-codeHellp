@@ -1,0 +1,102 @@
+Layout:
+
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Settings">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="sleep"
+            android:summary="this is sleep in pc"
+            android:title="Sleep" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="shutDown"
+            android:title="ShutDown" />
+    </PreferenceCategory>
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="switch_preference_1"
+        android:title="Sleep Screen" />
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:dependency="sleep"
+        android:dialogMessage="hellow world"
+        android:dialogTitle="hellow"
+        android:key="edit_text_preference_1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Edit text preference" />
+    <RingtonePreference
+        android:defaultValue=""
+        android:dependency="shutDown"
+        android:key="ringtone_preference_1"
+        android:ringtoneType="notification"
+        android:title="Ringtone preference" />
+</PreferenceScreen>
+
+Activity:
+
+import android.os.Bundle
+import android.preference.PreferenceActivity
+import android.preference.PreferenceFragment
+
+class Main2Activity : PreferenceActivity() {
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        fragmentManager.beginTransaction().replace(android.R.id.content, MainSettingsFragment()).commit()
+
+    }
+
+    public class MainSettingsFragment : PreferenceFragment() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            addPreferencesFromResource(R.xml.preferences)
+        }
+    }
+
+}
+
+Load Preferences:
+
+private fun loadData() {
+        val settings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val test = settings.getBoolean("sleep", false)
+        if (test)
+            textView.text = "Sleep"
+        else
+            textView.text = "Active"
+    }
+
+Update in DataPreferences:
+
+	loadData(){
+		settings.registerOnSharedPreferenceChangeListener(this)
+	}
+
+	override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        	loadData()
+	}
+
+Upadate in DataPreferences 2:
+
+MainActiviti:
+var onListener: SharedPreferences.OnSharedPreferenceChangeListener? = null
+
+onCreate:
+
+onListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+            settings.registerOnSharedPreferenceChangeListener(onListener)
+            loadData()
+        }
+
+nokte:
+
+class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener{
+
+}
+

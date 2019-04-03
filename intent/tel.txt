@@ -1,0 +1,2 @@
+val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/ViraNika_co"))
+                startActivity(intent)

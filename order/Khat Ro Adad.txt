@@ -1,0 +1,4 @@
+val price = "1000"
+val spanable1 = SpannableString(price)
+spanable.setSpan(StrikethroughSpan(),0,price.lenght,Spanned.SPAN_MARK_MARK)
+txt1.text = Spanable

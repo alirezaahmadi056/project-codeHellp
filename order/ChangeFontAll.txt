@@ -1,0 +1,16 @@
+        val rr: ConstraintLayout = findViewById(R.id.constraintLayout)
+        val typeface = Typeface.createFromAsset(assets, "fonts/sans.ttf")
+        setFont(rr, typeface)
+
+fun setFont(group: ViewGroup, font: Typeface) {
+        val count = group.childCount
+        var v: View
+        for (i in 0 until count) {
+            v = group.getChildAt(i)
+            if (v is TextView || v is EditText || v is Button) {
+                (v as TextView).typeface = font
+            } else if (v is ViewGroup)
+                setFont(v, font)
+        }
+    }
+

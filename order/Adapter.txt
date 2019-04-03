@@ -1,0 +1,62 @@
+import android.content.Context
+import android.media.MediaPlayer
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import kotlinx.android.synthetic.main.layout_default_list.view.*
+
+class MyAdapter(val context: Context, var categores: List<ValuesData>) : BaseAdapter() {
+
+    var media: MediaPlayer? = null
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val categoreView: View
+        val holder: ViewHolder
+        if (convertView == null) {
+            categoreView = LayoutInflater.from(context).inflate(R.layout.layout_default_list, null)
+            holder = ViewHolder()
+            holder.img1 = categoreView.findViewById(R.id.imageView3)
+            holder.txtText = categoreView.findViewById(R.id.txtText)
+            holder.txtTranslate = categoreView.findViewById(R.id.txtTranslate)
+            categoreView.tag = holder
+        } else {
+            holder = convertView.tag as ViewHolder
+            categoreView = convertView
+        }
+        val categore = categores[position]
+        holder.txtText?.text = categore.word
+        holder.txtTranslate?.text = categore.translate
+        val ID_Image = context.resources.getIdentifier(categore.image, "drawable", context.packageName)
+        holder.img1?.setImageResource(ID_Image)
+        categoreView.imageView2.setOnClickListener {
+            val ID_Audio = context.resources.getIdentifier(categore.audio, "raw", context.packageName)
+            media = MediaPlayer.create(context, ID_Audio)
+            media?.start()
+            media?.setOnCompletionListener {
+                media?.release()
+            }
+        }
+        return categoreView
+    }
+
+    override fun getItem(position: Int): Any {
+        return categores[position]
+    }
+
+    override fun getItemId(position: Int): Long {
+        return 0
+    }
+
+    override fun getCount(): Int {
+        return categores.count()
+    }
+}
+
+class ViewHolder {
+    var img1: ImageView? = null
+    var txtText: TextView? = null
+    var txtTranslate: TextView? = null
+}

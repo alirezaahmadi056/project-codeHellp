@@ -1,0 +1,12 @@
+Style:
+
+<style name="splash" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+Manifests:
+
+
+<main_Activity
+	android:theme="@style/splash">
+	></main_Activity>

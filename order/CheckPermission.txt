@@ -1,0 +1,9 @@
+fun checkPermissionStorage(): Boolean {
+        val state = Environment.getExternalStorageState()
+        when (state) {
+            Environment.MEDIA_MOUNTED -> return true
+            Environment.MEDIA_MOUNTED_READ_ONLY -> Toast.makeText(this, "Read-Only", Toast.LENGTH_LONG).show()
+            else -> Toast.makeText(this, "Dar Dastres Nist", Toast.LENGTH_LONG).show()
+        }
+        return false
+    }

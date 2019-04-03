@@ -1,0 +1,18 @@
+﻿One:
+
+val check = editText.text.toString()
+            if (!check.matches(Regex("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+"))) {
+
+                Toast.makeText(this, "ایمیل وارد شده معتبر نیست.", Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                Toast.makeText(this, "ایمیل معتبر هست.", Toast.LENGTH_SHORT).show();
+
+            }
+
+Tow:
+
+private fun checkEmail(text: CharSequence): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(text).matches()
+    }

@@ -1,0 +1,6 @@
+public function getAllProducts()
+    {
+
+        return $this->db->get_results("SELECT * FROM {$this->table} LIMIT 2 ");
+
+    }

@@ -1,0 +1,2 @@
+@GET("test.php")
+    fun getType(@Query("test") test: String): Call<MyObject>

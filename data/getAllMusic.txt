@@ -1,0 +1,28 @@
+﻿fun getPlayList(): ArrayList<HashMap<String, String>> {
+
+        val file = File(path)
+        if (file.listFiles(FileExtensionFilter()).isNotEmpty()) {
+            file.listFiles(FileExtensionFilter()).forEach {
+                val sound = HashMap<String, String>()
+                sound["title"] = it.name.substring(0, it.name.length - 4)
+                sound["path"] = it.path
+                soundList.add(sound)
+            }
+        } else {
+            val sound = HashMap<String, String>()
+            sound["title"] = "آهنگی موجود نیست"
+            sound["path"] = "آهنگی موجود نیست"
+            soundList.add(sound)
+        }
+
+        return soundList
+
+    }
+
+    class FileExtensionFilter : FilenameFilter {
+
+        override fun accept(dir: File?, name: String?): Boolean {
+            return (name?.endsWith(".mp3")!! || name.endsWith(".MP3") || name.endsWith(".wav") || name.endsWith(".wma"))
+        }
+
+    }

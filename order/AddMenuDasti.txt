@@ -1,0 +1,8 @@
+override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu!!.add("Settings").setOnMenuItemClickListener {
+            val intent = Intent(this, Main2Activity::class.java)
+            startActivity(intent)
+            false
+        }
+        return super.onCreateOptionsMenu(menu)
+    }

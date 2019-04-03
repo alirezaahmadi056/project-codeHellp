@@ -1,0 +1,110 @@
+import android.annotation.SuppressLint
+import android.content.Context
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
+import java.io.File
+import java.io.FileOutputStream
+
+class DBHandler(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+
+    companion object {
+        val DB_NAME: String = "sepasgozari.db"
+        val DB_VERSION: Int = 1
+        var DB_PATH: String? = null
+        val DB_TABLE_DAYS: String = "Days"
+        val DB_TABLE_DAYS_CURRENT: String = "Days_current"
+    }
+
+    var DB: SQLiteDatabase? = null
+
+    init {
+        DB_PATH = context.cacheDir.path + "/" + DB_NAME
+    }
+
+    override fun onCreate(db: SQLiteDatabase?) {
+
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+
+    }
+
+    fun dbExists(): Boolean {
+        val file = File(DB_PATH)
+        return file.exists()
+    }
+
+    fun copyDB(): Boolean {
+        try {
+            val fileOut = FileOutputStream(DB_PATH)
+            val inStream = context.assets.open(DB_NAME)
+            val buffer = ByteArray(1024)
+            var ch = inStream.read(buffer)
+            while (ch > 0) {
+                fileOut.write(buffer, 0, ch)
+                ch = inStream.read(buffer)
+            }
+            fileOut.flush()
+            fileOut.close()
+            inStream.close()
+            return true
+
+        } catch (ex: Exception) {
+            return false
+        }
+    }
+
+    fun openDB() {
+        if (dbExists()) {
+            try {
+                val temp = File(DB_PATH)
+                DB = SQLiteDatabase.openDatabase(temp.absolutePath, null, SQLiteDatabase.OPEN_READWRITE)
+            } catch (ex: Exception) {
+
+            }
+        } else {
+            if (copyDB())
+                openDB()
+            else
+                return
+        }
+    }
+
+    override fun close() {
+        DB?.close()
+    }
+
+    @SuppressLint("Recycle")
+    fun query(): Cursor {
+        return DB?.rawQuery("SELECT * FROM $DB_TABLE_DAYS", null)!!
+    }
+
+}
+
+Activity:
+
+onCreate:
+
+db = DBHandler(this)
+        db?.openDB()
+        val result = db?.query()
+        setData(result!!, ID.toInt())
+        db?.close()
+
+setData:
+
+private fun setData(cursor: Cursor, ID: Int) {
+        val list = hashMapOf<String, String>()
+        val list2 = hashMapOf<String, String>()
+        var id = 1
+        while (cursor.moveToNext()) {
+            list["$id"] = cursor.getString(1)
+            list2["$id"] = cursor.getString(2)
+            id++
+        }
+        txtDay.text = list["$ID"]
+        txtDesc.text = list2.get(key = "$ID")
+        list.clear()
+        list2.clear()
+    }

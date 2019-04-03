@@ -1,0 +1,109 @@
+package application.ahmadi.myshopwodpress
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import com.daimajia.slider.library.SliderLayout
+import com.daimajia.slider.library.SliderTypes.BaseSliderView
+import com.daimajia.slider.library.Tricks.ViewPagerEx
+import com.daimajia.slider.library.SliderTypes.TextSliderView
+
+
+class MainActivity : AppCompatActivity(), BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+
+    override fun onPageScrollStateChanged(state: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onPageSelected(position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onSliderClick(slider: BaseSliderView?) {
+        Toast.makeText(this, "onClick", Toast.LENGTH_LONG).show()
+    }
+
+    var sliderView: SliderLayout? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        sliderView = findViewById(R.id.slider)
+
+        val url_maps = ArrayList<String>()
+        url_maps.add("http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg")
+        url_maps.add("http://tvfiles.alphacoders.com/100/hdclearart-10.png")
+        url_maps.add("http://cdn3.nflximg.net/images/3093/2043093.jpg")
+        url_maps.add("http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg")
+
+        for (item in 0 until url_maps.size) {
+
+            val textSliderView = TextSliderView(this)
+
+            // initialize a SliderLayout
+            textSliderView
+                .image(url_maps[item])
+                .setScaleType(BaseSliderView.ScaleType.Fit)
+                .setOnSliderClickListener(this)
+
+            //add your extra information
+            textSliderView.bundle(Bundle())
+
+            sliderView?.addSlider(textSliderView)
+        }
+
+    }
+}
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+    <com.daimajia.slider.library.SliderLayout
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+    />
+
+</LinearLayout>
+
+implementation 'com.squareup.picasso:picasso:2.3.2'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
+
+
+
+mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+        mDemoSlider.setDuration(4000);
+        mDemoSlider.addOnPageChangeListener(this);
+        ListView l = (ListView)findViewById(R.id.transformers);
+        l.setAdapter(new TransformerAdapter(this));
+        l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mDemoSlider.setPresetTransformer(((TextView) view).getText().toString());
+                Toast.makeText(MainActivity.this, ((TextView) view).getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
+        mDemoSlider.stopAutoCycle();
+        super.onStop();
+    }

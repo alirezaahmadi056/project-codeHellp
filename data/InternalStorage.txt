@@ -1,0 +1,25 @@
+    fun onClickCreate(view: View) {
+        val text = editText3.text.toString()
+        val fos = openFileOutput("myFiles.txt", Context.MODE_PRIVATE)
+        fos.write(text.toByteArray())
+        fos.close()
+        Toast.makeText(this, "Ok Please", Toast.LENGTH_LONG).show()
+    }
+
+    fun onClickRead(view: View) {
+        val fis = openFileInput("myFiles")
+        val reader = BufferedReader(InputStreamReader(fis))
+        var line: String
+        val sb = StringBuilder()
+        try {
+
+            do {
+                line = reader.readLine()
+                sb.append(line)
+            } while (true)
+
+        } catch (ex: Exception) {
+
+        }
+        textView2.text = sb
+    }

@@ -1,0 +1,3 @@
+media1.setOnCompletionListener {
+                Toast.makeText(this, "tamonade", Toast.LENGTH_LONG).show()
+            }

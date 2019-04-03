@@ -1,0 +1,9 @@
+button2.setOnClickListener {
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("DownloadSupper")
+            progressDialog.setMessage("Loftan Bestak")
+            progressDialog.setCancelable(false)
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+            progressDialog.setIndeterminate(true)
+            progressDialog.show()
+        }

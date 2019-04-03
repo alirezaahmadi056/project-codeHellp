@@ -1,0 +1,77 @@
+﻿package application.ahmadi.larzenegar
+
+import android.os.AsyncTask
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-01-01&endtime=2016-01-31&minmag=6&limit=10"
+
+
+    }
+
+    inner class MyAsyncTask : AsyncTask<String, String, String>() {
+        override fun doInBackground(vararg params: String?): String {
+
+            try {
+
+                val url = URL(params[0])
+                val urlConnect = url.openConnection() as HttpsURLConnection
+                urlConnect.connectTimeout = 10000
+                val inString = convertStreamToAtring(urlConnect.inputStream)
+                publishProgress(inString)
+
+            } catch (ex: JSONException) {
+                ex.printStackTrace()
+            }
+
+            return ""
+        }
+
+        override fun onProgressUpdate(vararg values: String?) {
+
+            val json = JSONObject(values[0])
+
+        }
+
+        private fun convertStreamToString(stream: InputStream): String {
+
+            val bufferReader = BufferedReader(InputStreamReader(stream))
+            var line: String
+            val sb = StringBuilder()
+            try {
+
+                do {
+                    line = bufferReader.readLine()
+                    sb.append(line)
+                } while (true)
+
+            } catch (ex: Exception) {
+
+            }
+
+            return sb.toString()
+
+        }
+    }
+}
+
+Parser JSON File in Directory raw:
+
+onCreate:
+
+	val inputStream = resources.openRawResource(R.raw.jsonflowers)
+        convertStreamToString(inputStream)
+	inputStream.close()

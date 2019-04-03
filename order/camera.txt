@@ -1,0 +1,11 @@
+button.setOnClickListener {
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(intent, 0)
+        }
+
+
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val bitMap = data?.extras?.get("data") as Bitmap
+        imageView.setImageBitmap(bitMap)
+    }

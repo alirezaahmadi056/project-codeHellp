@@ -1,0 +1,6 @@
+val time = 50
+            val intent = Intent(this, MyBroadCast::class.java)
+            val pending = PendingIntent.getBroadcast(applicationContext, 1234, intent, 0)
+            val alarm = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarm.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (time * 1000), pending)
+            Toast.makeText(this, "Create Alarm", Toast.LENGTH_LONG).show()
