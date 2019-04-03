@@ -5,3 +5,11 @@ object : CountDownTimer(5000, 1000) {
                     Toast.makeText(this@Main2Activity, "sdafsdf", Toast.LENGTH_LONG).show()
                 }
             }.start()
+
+//after 4 secound
+
+Handler().postAtTime({
+            
+            //your code
+            
+        },4000)
