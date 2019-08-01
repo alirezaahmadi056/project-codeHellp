@@ -1,0 +1,63 @@
+	val adapter = TabAdapter(supportFragmentManager)
+
+        adapter.addFragment(FragmentOne(), "fragment1")
+        adapter.addFragment(FragmentTow(), "fragment2")
+        adapter.addFragment(FragmentThree(), "fragment3")
+
+        viewPager_intro_showFragment.adapter = adapter
+
+        btn_intro_next.setOnClickListener { viewPager_intro_showFragment.currentItem++ }
+
+        btn_intro_skip.setOnClickListener { startActivity<ViewsActivity>() }
+
+        viewPager_intro_showFragment.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(p0: Int) {}
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
+
+            override fun onPageSelected(position: Int) {
+
+                if (position == 2) {
+
+                    btn_intro_next.text = getString(R.string.done)
+                    btn_intro_next.setOnClickListener { startActivity<ViewsActivity>(); finish() }
+
+                } else {
+
+                    btn_intro_next.setOnClickListener { viewPager_intro_showFragment.currentItem++ }
+                    btn_intro_next.text = getString(R.string.next)
+
+                }
+
+                when (position) {
+
+                    0 -> {
+
+                        txtIndicator_intro_1.setTextColor(Color.BLACK)
+                        txtIndicator_intro_2.setTextColor(Color.GRAY)
+                        txtIndicator_intro_3.setTextColor(Color.GRAY)
+
+                    }
+
+                    1 -> {
+
+                        txtIndicator_intro_1.setTextColor(Color.GRAY)
+                        txtIndicator_intro_2.setTextColor(Color.BLACK)
+                        txtIndicator_intro_3.setTextColor(Color.GRAY)
+
+                    }
+
+                    else -> {
+
+                        txtIndicator_intro_1.setTextColor(Color.GRAY)
+                        txtIndicator_intro_2.setTextColor(Color.GRAY)
+                        txtIndicator_intro_3.setTextColor(Color.BLACK)
+
+                    }
+
+                }
+
+            }
+
+        })
